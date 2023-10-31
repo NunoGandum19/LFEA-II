@@ -110,7 +110,7 @@ plt.show() '''
 
 ### aula3_6.lab ###
 
-with open('aula3_6.lab', 'r') as file:
+with open('dados_para_gauss/aula3_6.lab', 'r') as file:
     lines = file.readlines()
 
 data36 = []
@@ -120,10 +120,18 @@ for line in lines:
     data36.append(values)
 
 df36 = pd.DataFrame(data36, columns=['iteracao', 'time', 'T.Piezo', 'T.Foto'])
+rolling_mean_foto = df36['T.Foto'].rolling(window=10).mean()
 
 T_Piezo36 = np.array(df36['T.Piezo'])
-T_Foto36 = np.array(df36['T.Foto'])
+T_Foto36 = np.array(rolling_mean_foto)
 
+
+nan_indices = np.argwhere(np.isnan(T_Foto36))
+
+for i in nan_indices:
+    T_Foto36[i] = df36['T.Foto'][i]
+
+T_Foto36 = df36['T.Foto']
 valores_selecionados_1 = T_Piezo36[(T_Piezo36 >= 4) & (T_Piezo36 <= 5)]
 valores_selecionados_2 = T_Piezo36[(T_Piezo36 >= 5) & (T_Piezo36 <= 6)]
 
@@ -134,24 +142,24 @@ std_dev36_1 = np.std(valores_selecionados_1)
 std_dev36_2 = np.std(valores_selecionados_2)
 
 # Definir a função gaussiana
-def gauss_sum(x1, A, mu1, sigma1, x2, B, mu2, sigma2):
-    return (A * np.exp(-(x1 - mu1) ** 2 / (sigma1 ** 2)))/np.sqrt(2*np.pi*sigma1**2) + (B * np.exp(-(x2 - mu2) ** 2 / (sigma2 ** 2)))/np.sqrt(2*np.pi*sigma2**2)
+def gauss_sum(x, A, mu1, sigma1, B, mu2, sigma2,d):
+    return (A * np.exp(0.5* -(x - mu1) ** 2 / (sigma1 ** 2)))/np.sqrt(2*np.pi*sigma1**2) + (B * np.exp(0.5*-(x - mu2) ** 2 / (sigma2 ** 2)))/np.sqrt(2*np.pi*sigma2**2) + d
 
 # Ajustar a gaussiana apenas para o intervalo selecionado
-p036_1 = [T_Foto36.max(), mean36_1, std_dev36_1]  # Estimativas iniciais para A, mu1 e sigma1
-popt36_1, _ = curve_fit(gauss_sum, valores_selecionados_1, T_Foto36[(T_Piezo36 >= 4) & (T_Piezo36 <= 5)], p0=p036_1)
+p036 = [T_Foto36.max(), mean36_1, std_dev36_1,T_Foto36[(T_Piezo36 >= 5) & (T_Piezo36 <= 6)].max(), mean36_2, std_dev36_2,5]  # Estimativas iniciais para A, mu1 e sigma1
+popt36_1, _ = curve_fit(gauss_sum, T_Piezo36, T_Foto36, p0=p036)
+x_fit36 = np.linspace(3, 7)  # Intervalo para o ajuste
+x_fit36_2 = np.linspace(5, 6, 100)
+A1 , mu1 , sigma1, A2, mu2, sigma2, d = popt36_1[0] , popt36_1[1], popt36_1[2] , popt36_1[3], popt36_1[4], popt36_1[5], popt36_1[6]
 
-p036_2 = [T_Foto36[(T_Piezo36 >= 5) & (T_Piezo36 <= 6)].max(), mean36_2, std_dev36_2]  # Estimativas iniciais para B, mu2 e sigma2
-popt36_2, _ = curve_fit(gauss, valores_selecionados_2, T_Foto36[(T_Piezo36 >= 5) & (T_Piezo36 <= 6)], p0=p036_2)
-
-x_fit36 = np.linspace(4, 7)  # Intervalo para o ajuste
-#x_fit36_2 = np.linspace(5, 6, 100)
-
-# Plotagem dos dados e da gaussiana ajustada
+# Plot dos dados e da gaussiana ajustada
 plt.figure(figsize=(12, 6))
 
-plt.plot(T_Piezo36, T_Foto36, color='red')
-plt.plot(x_fit36, gauss_sum(x_fit36, *popt36_1), color='blue', label='Distribuição Normal (Gaussiana) Ajustada')
+plt.plot(T_Piezo36, T_Foto36)
+#plt.plot(, label=r'$%3.f \cdot \frac{1}{\sqrt{2\pi%3.f}}e^{\frac{-(x-%.3f)^2}{%.3f^2}}$,  $\mu_2$ = %.3f, $\sigma_2$ = %.3f, d = %.3f' % (A1, sigma1, mu1, sigma1, mu2, sigma2, d))
+
+plt.plot(x_fit36, gauss_sum(x_fit36, *popt36_1), label=r'$f(x) = %.3f \cdot \frac{1}{{%.3f \sqrt{2\pi}}} \cdot e^{-\frac{(x - %.3f)^2}{2%.3f^2}} + %.3f \cdot \frac{1}{{%.3f \sqrt{2\pi}}} \cdot e^{-\frac{(x - %.3f)^2}{2%.3f^2}} + %.3f$' %(A1,sigma1,mu1,sigma1,A2,sigma2,mu2,sigma2,d))
+
 
 plt.xlabel('T.Piezo')
 plt.ylabel('T.Foto')
@@ -163,8 +171,18 @@ y_values_to_display = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 plt.xticks(x_values_to_display)
 plt.yticks(y_values_to_display)
 
-plt.legend()
+plt.legend(fontsize='large')
 plt.show() 
+print('\n')
+print('Gaussian parameters: ')
+print('A1 = ', popt36_1[0])
+print('mu1 = ', popt36_1[1])
+print('sigma1 = ', popt36_1[2])
+print('A2 = ', popt36_1[3])
+print('mu2 = ', popt36_1[4])
+print('sigma2 = ', popt36_1[5])
+print('d = ', popt36_1[6])
+print('\n')
 
 ### aula3_7.lab ###
 '''
