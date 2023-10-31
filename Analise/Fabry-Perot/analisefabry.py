@@ -138,7 +138,7 @@ valores_selecionados_2 = T_Piezo36[(T_Piezo36 >= 5) & (T_Piezo36 <= 6)]
 # Calcular a média e o desvio padrão dos dados selecionados
 mean36_1 = np.mean(valores_selecionados_1)
 mean36_2 = np.mean(valores_selecionados_2)
-std_dev36_1 = np.std(valores_selecionados_1)
+std_dev36_1 = np.std(valores_selecionados_1) 
 std_dev36_2 = np.std(valores_selecionados_2)
 
 # Definir a função gaussiana
