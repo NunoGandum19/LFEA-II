@@ -54,7 +54,7 @@ y_values_to_display = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 plt.xticks(x_values_to_display)
 plt.yticks(y_values_to_display)
 
-plt.legend()
+plt.legend(fontsize='small')
 plt.show()
 
 ### aula3_5.lab ###
@@ -102,7 +102,7 @@ y_values_to_display = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 plt.xticks(x_values_to_display)
 plt.yticks(y_values_to_display)
 
-plt.legend()
+plt.legend(fontsize='small')
 plt.show() 
 
 ### aula3_6.lab ###
@@ -169,7 +169,7 @@ y_values_to_display = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 plt.xticks(x_values_to_display)
 plt.yticks(y_values_to_display)
 
-plt.legend(fontsize='large')
+plt.legend(fontsize='small')
 plt.show() 
 print('\n')
 print('Gaussian parameters: ')
@@ -243,7 +243,7 @@ y_values_to_display = [0, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5
 plt.xticks(x_values_to_display)
 plt.yticks(y_values_to_display)
 
-plt.legend()
+plt.legend(fontsize='small')
 plt.show() 
 
 print('\n')
@@ -309,7 +309,7 @@ y_values_to_display = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 plt.xticks(x_values_to_display)
 plt.yticks(y_values_to_display)
 
-plt.legend(fontsize='large')
+plt.legend(fontsize='small')
 plt.show() 
 print('\n')
 print('Gaussian parameters: ')
@@ -383,11 +383,9 @@ plt.plot(T_Piezo312, T_Foto312)
 plt.plot(x_fit312_1, gauss_sum(x_fit312_1, *popt312_1), label=r'$A3 = %.3f \pm %.3f; \mu 3 = %.3f \pm %.3f; \sigma 3 = %.3f \pm %.3f; A4= %.3f \pm %.3f; \mu 4 = %.3f \pm %.3f; \sigma 4 = %.3f \pm %.3f; d = %.3f \pm %.3f$' %(A3,a3_error,mu3,mu3_error,sigma3,sigma3_error,A4,a4_error,mu4,mu4_error,sigma4,sigma4_error,d3_4,d3_4_error))
 plt.plot(x_fit312_2, gauss_sum(x_fit312_2, *popt312_2), label=r'$A1 = %.3f \pm %.3f; \mu 1 = %.3f \pm %.3f; \sigma 1 = %.3f \pm %.3f; A2 = %.3f \pm %.3f; \mu 2 = %.3f \pm %.3f; \sigma 2 = %.3f \pm %.3f; d = %.3f \pm %.3f$' %(A1,a1_error,mu1,mu1_error,sigma1,sigma1_error,A2,a2_error,mu2,mu2_error,sigma2,sigma2_error,d1_2,d1_2_error))
 
-plt.xlabel('T.Piezo')
-plt.legend(fontsize='large')
-plt.show() 
 plt.ylabel('T.Foto')
 plt.title('aula312 ')
+plt.xlabel('T.Piezo')
 
 x_values_to_display = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 y_values_to_display = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
@@ -395,7 +393,7 @@ y_values_to_display = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 plt.xticks(x_values_to_display)
 plt.yticks(y_values_to_display)
 
-plt.legend(fontsize='large')
+plt.legend(fontsize='small')
 plt.show() 
 print('\n')
 print('Gaussian parameters: ')
@@ -480,9 +478,7 @@ plt.plot(T_Piezo314, T_Foto314)
 plt.plot(x_fit314_1, gauss_sum(x_fit314_1, *popt314_1), label=r'$A3 = %.3f \pm %.3f; \mu 3 = %.3f \pm %.3f; \sigma 3 = %.3f \pm %.3f; A4 = %.3f \pm %.3f; \mu 4 = %.3f \pm %.3f; \sigma 4  = %.3f \pm %.3f; d = %.3f \pm %.3f$' %(A3,a3_error,mu3,mu3_error,sigma3,sigma3_error,A4,a4_error,mu4,mu4_error,sigma4,sigma4_error,d3_4,d3_4_error))
 plt.plot(x_fit314_2, gauss_sum(x_fit314_2, *popt314_2), label=r'$A1 = %.3f \pm %.3f; \mu 1 = %.3f \pm %.3f; \sigma 1 = %.3f \pm %.3f; A2 = %.3f \pm %.3f; \mu 2 = %.3f \pm %.3f; \sigma 2 = %.3f \pm %.3f; d = %.3f \pm %.3f$' %(A1,a1_error,mu1,mu1_error,sigma1,sigma1_error,A2,a2_error,mu2,mu2_error,sigma2,sigma2_error,d1_2,d1_2_error))
 
-plt.xlabel('T.Piezo')
-plt.legend(fontsize='large')
-plt.show() 
+plt.xlabel('T.Piezo') 
 plt.ylabel('T.Foto')
 plt.title('aula314 ')
 
@@ -492,7 +488,7 @@ y_values_to_display = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 plt.xticks(x_values_to_display)
 plt.yticks(y_values_to_display)
 
-plt.legend(fontsize='large')
+plt.legend(fontsize='small')
 plt.show() 
 print('\n')
 print('Gaussian parameters: ')
@@ -575,8 +571,8 @@ y_values_to_display = [0, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5
 plt.xticks(x_values_to_display)
 plt.yticks(y_values_to_display)
 
-plt.legend()
-plt.show() 
+plt.legend(fontsize='small')
+plt.show()
 
 print('\n')
 print('Gaussian parameters: ')
@@ -650,7 +646,7 @@ y_values_to_display = [0, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5
 plt.xticks(x_values_to_display)
 plt.yticks(y_values_to_display)
 
-plt.legend()
+plt.legend(fontsize = 'small')
 plt.show() 
 
 print('\n')
@@ -725,7 +721,7 @@ y_values_to_display = [0, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5
 plt.xticks(x_values_to_display)
 plt.yticks(y_values_to_display)
 
-plt.legend()
+plt.legend(fontsize = 'small')
 plt.show() 
 
 print('\n')
@@ -800,7 +796,7 @@ y_values_to_display = [0, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5
 plt.xticks(x_values_to_display)
 plt.yticks(y_values_to_display)
 
-plt.legend()
+plt.legend(fontsize = 'small')
 plt.show() 
 
 print('\n')
@@ -875,7 +871,7 @@ y_values_to_display = [0, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5
 plt.xticks(x_values_to_display)
 plt.yticks(y_values_to_display)
 
-plt.legend()
+plt.legend(fontsize = 'small')
 plt.show() 
 
 print('\n')
@@ -949,7 +945,7 @@ y_values_to_display = [0, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5
 plt.xticks(x_values_to_display)
 plt.yticks(y_values_to_display)
 
-plt.legend()
+plt.legend(fontsize = 'small')
 plt.show() 
 
 print('\n')
