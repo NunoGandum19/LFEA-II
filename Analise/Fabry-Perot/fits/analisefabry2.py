@@ -703,8 +703,8 @@ valores_selecionados_3 = T_Piezo47[(T_Piezo47 >= 4.5) & (T_Piezo47 <= 5)]
 valores_selecionados_4 = T_Piezo47[(T_Piezo47 >= 5.5) & (T_Piezo47 <= 6)]
 valores_selecionados_1 = T_Piezo47[(T_Piezo47 >= 0.5) & (T_Piezo47 <= 1.5)]
 valores_selecionados_2 = T_Piezo47[(T_Piezo47 >= 1.5) & (T_Piezo47 <= 2.5)]
-valores_selecionados_5 = T_Piezo47[(T_Piezo47 >= 8.25) & (T_Piezo47 <= 8.4)]
-valores_selecionados_6 = T_Piezo47[(T_Piezo47 >= 8.75) & (T_Piezo47 <= 9.25)]
+valores_selecionados_5 = T_Piezo47[(T_Piezo47 >= 8.4) & (T_Piezo47 <= 8.8)]
+valores_selecionados_6 = T_Piezo47[(T_Piezo47 >= 8.8) & (T_Piezo47 <= 8.9)]
 
 # Calcular a média e o desvio padrão dos dados selecionados
 mean47_1 = np.mean(valores_selecionados_1)
@@ -733,7 +733,7 @@ x_fit47_2 = np.linspace(4.5, 6)  # Intervalo para o ajuste
 A3 , mu3 , sigma3, A4, mu4, sigma4, d = popt47_2[0] , popt47_2[1], popt47_2[2] , popt47_2[3], popt47_2[4], popt47_2[5], popt47_2[6]
 A3_error, mu3_error, sigma3_error, A4_error, mu4_error, sigma4_error, d2_error = np.sqrt(np.diag(covariance2))
 
-p047_3 = [T_Foto47.max(), mean47_5, std_dev47_5, T_Foto47[(T_Piezo47>= 8.75) & (T_Piezo47 <= 9.25)].max(), mean47_6, std_dev47_6, 5]  # Estimativas iniciais para A, mu e sigma
+p047_3 = [T_Foto47.max(), mean47_5, std_dev47_5, T_Foto47[(T_Piezo47>= 8.8) & (T_Piezo47 <= 8.9)].max(), mean47_6, 0.1*std_dev47_6, 5]  # Estimativas iniciais para A, mu e sigma
 popt47_3, covariance3 = curve_fit(gauss_sum, T_Piezo47, T_Foto47, p0=p047_3)
 x_fit47_3 = np.linspace(8.25, 9.25)  # Intervalo para o ajuste
 A5 , mu5 , sigma5, A6, mu6, sigma6, d = popt47_3[0] , popt47_3[1], popt47_3[2] , popt47_3[3], popt47_3[4], popt47_3[5], popt47_3[6]
@@ -845,3 +845,63 @@ plt.yticks(y_values_to_display)
 plt.legend(fontsize='small')
 plt.savefig('aula48.png')
 plt.show() 
+
+### aula3_13.lab ###
+
+with open('aula3_13.lab', 'r') as file:
+    lines = file.readlines()
+
+data313 = []
+for line in lines:
+    values = line.strip().split()
+    values = [float(v) for v in values]
+    data313.append(values)
+
+df313 = pd.DataFrame(data313, columns=['iteracao', 'time', 'T.Piezo', 'T.Foto'])
+
+T_Piezo313 = np.array(df313['T.Piezo'])
+T_Foto313 = np.array(df313['T.Foto'])
+
+valores_selecionados_1 = T_Piezo313[(T_Piezo313 >= 0.5) & (T_Piezo313 <= 0.8)]
+valores_selecionados_2 = T_Piezo313[(T_Piezo313 >= 7) & (T_Piezo313 <= 7.5)]
+
+# Calcular a média e o desvio padrão dos dados selecionados
+mean313_1 = np.mean(valores_selecionados_1)
+mean313_2 = np.mean(valores_selecionados_2)
+std_dev313_1 = np.std(valores_selecionados_1) 
+std_dev313_2 = np.std(valores_selecionados_2) 
+
+# Ajustar a gaussiana apenas para o intervalo selecionado
+p0313_1 = [T_Foto313.max(), mean313_1, std_dev313_1, 5]  # Estimativas iniciais para A, mu e sigma
+popt313_1, covariance1 = curve_fit(gauss, valores_selecionados_1, T_Foto313[(T_Piezo313 >= 0.5) & (T_Piezo313 <= 0.8)], p0=p0313_1)
+A1_error, mu1_error, sigma1_error, d1_error = np.sqrt(np.diag(covariance1))
+x_fit313_1 = np.linspace(0.3, 0.9)  # Intervalo para o ajuste
+
+p0313_2 = [T_Foto313.max(), mean313_2, std_dev313_2, 5]  # Estimativas iniciais para A, mu e sigma
+popt313_2, covariance2 = curve_fit(gauss, valores_selecionados_2, T_Foto313[(T_Piezo313 >= 7) & (T_Piezo313 <= 7.5)], p0=p0313_2)
+A2_error, mu2_error, sigma2_error, d2_error = np.sqrt(np.diag(covariance2))
+x_fit313_2 = np.linspace(7, 7.5)  # Intervalo para o ajuste
+
+# Plot dos dados e da gaussiana ajustada
+plt.figure(figsize=(12, 6))
+
+plt.plot(T_Piezo313, T_Foto313)
+#plt.plot(, label=r'$%3.f \cdot \frac{1}{\sqrt{2\pi%3.f}}e^{\frac{-(x-%.3f)^2}{%.3f^2}}$,  $\mu_2$ = %.3f, $\sigma_2$ = %.3f, d = %.3f' % (A1, sigma1, mu1, sigma1, mu2, sigma2, d))
+
+plt.plot(x_fit313_1, gauss(x_fit313_1, *popt313_1), label=r'$A_1 = %.3f \pm %.3f; \mu_1 = %.3f \pm %.3f; \sigma_1 = %.3f \pm %.3f; d_1 = %.3f \pm %.3f$' %(popt313_1[0], A1_error, popt313_1[1], mu1_error, popt313_1[2], sigma1_error, popt313_1[3], d1_error))
+plt.plot(x_fit313_2, gauss(x_fit313_2, *popt313_2), label=r'$A_2 = %.3f \pm %.3f; \mu_2 = %.3f \pm %.3f; \sigma_2 = %.3f \pm %.3f; d_2 = %.3f \pm %.3f$' %(popt313_2[0], A2_error, popt313_2[1], mu2_error, popt313_2[2], sigma2_error, popt313_2[3], d2_error))
+
+plt.xlabel('T.Piezo')
+plt.ylabel('T.Foto')
+plt.title('aula313 ')
+
+x_values_to_display = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+y_values_to_display = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+
+plt.xticks(x_values_to_display)
+plt.yticks(y_values_to_display)
+
+plt.legend(fontsize='small')
+plt.savefig('aula313.png')
+plt.show() 
+
