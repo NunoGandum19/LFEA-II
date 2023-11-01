@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.optimize import curve_fit
 import pandas as pd
+from scipy import integrate
 
 ################# FUNCTIONS ##################
 def reader(name, beta_min, beta_max, delta_ang, delta_t):
@@ -74,13 +75,53 @@ Al_spectrum_mau = reader("dados_ref/Al_Spectrum_mau.xry", 2.5, 45, 0.1, 1)
 HOPG_spectrum = reader("dados_ref/HOPG_Spectrum.xry", 2.5, 45, 0.1, 1)
 Safira_spectrum = reader("dados_ref/Safira_spectrum.xry", 10, 45, 0.1, 1)
 spectrums = [NaCl_spectrum, Si_spectrum, LiF_spectrum, NaCl_X_spectrum, NaCl_O_spectrum, Al_spectrum_mau, HOPG_spectrum, Safira_spectrum]
-#Tem que começar todos em 10.1, vamos encontrar o 10.1 e depois cortar o array
-#para começar em 10.1
-for spectrum in spectrums:
-    for i in range(len(spectrum)):
-        if spectrum[i][0] == 10.1:
+
+#Selecionar valores so a partir de 10.1 (podemos mudar este valor)
+new_specs = []
+for spec in spectrums:
+    for i in range(len(spec)):
+        if spec[i][0] == 10.1:
             break
-    spectrum = spectrum[i:]
+        new_spec = spec[i+1:]
+    new_specs.append(new_spec)
+
+new_new_specs = []
+
+#Selecionar valores so até 39.9
+for s in new_specs:
+    for i in range(len(spec)):
+        if s[i][0] == 39.9:
+            break
+        new_new_spec = s[:i+2]
+    new_new_specs.append(new_new_spec)
+
+#transformar esta merda em numpy arrays como deve ser 
+x_piqi= np.array(new_new_specs[0])[:,0]
+x_grande = np.array(new_new_specs[7])[:,0]
+y_specs = []
+for i in range(len(new_new_specs)): y_specs.append(np.array(new_new_specs[i])[:,1])
+
+results = []
+for spec in y_specs:
+    if len(spec) == len(x_piqi):
+        results.append(integrate.simps(spec, x_piqi))
+    elif len(spec) == len(x_grande):
+        results.append(integrate.simps(spec, x_grande))
+    else:
+        raise ValueError('O comprimento do array não é igual ao do x')
+
+refletividades_relativas = []
+
+for res in results: refletividades_relativas.append(res/results[0])
+
+print('Refletividade Relativa Si: ', refletividades_relativas[1])
+print('Refletividade Relativa LiF: ', refletividades_relativas[2])
+print('Refletividade Relativa NaCl_X: ', refletividades_relativas[3])
+print('Refletividade Relativa NaCl_O: ', refletividades_relativas[4])
+print('Refletividade Relativa Al: ', refletividades_relativas[5])
+print('Refletividade Relativa HOPG: ', refletividades_relativas[6])
+print('Refletividade Relativa Safira: ', refletividades_relativas[7])
+
 
 
 ### Plotting data
