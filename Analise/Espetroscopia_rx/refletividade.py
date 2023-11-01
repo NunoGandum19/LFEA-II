@@ -90,6 +90,31 @@ for spectrum in spectrums:
 """
 Dividir as counts de NaCl pelas do fundo
 """
+nacl_001 = reader("dados_ref/NaCl_0.01mA.xry", 5, 9, 0.1, 5)
+nada_001 = reader("dados_ref/Nada_0.01mA.xry", -2.5, 2.5, 0.1, 5)
+
+nacl_002 = reader("dados_ref/NaCl_0.02mA.xry", 5, 9, 0.1, 5)
+nada_002 = reader("dados_ref/Nada_0.02mA.xry", -2.5, 2.5, 0.1, 5)
+
+counts_nacl_001 = 0
+counts_nacl_002 = 0
+counts_nada_001 = 0
+counts_nada_002 = 0
+
+for i in range(1, len(nacl_001)):
+    counts_nacl_001 += nacl_001[i][1]
+    counts_nada_001 += nada_001[i][1]
+    counts_nacl_002 += nacl_002[i][1]
+    counts_nada_002 += nada_002[i][1]
+
+reflec_abs_nacl_001 = counts_nacl_001/counts_nada_001
+reflec_abs_nacl_002 = counts_nacl_002/counts_nada_002
+
+print(reflec_abs_nacl_001)
+print(reflec_abs_nacl_002)
+
+
+
 
 
 ##### Calculate the relative reflectivity of crystals
