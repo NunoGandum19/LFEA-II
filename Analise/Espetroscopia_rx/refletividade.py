@@ -1,4 +1,3 @@
-import os
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.optimize import curve_fit
@@ -62,10 +61,26 @@ lambda_K_beta = 63.095 # pm
 """
 ler os ficheiros dos cristais com I = 0.1mA + NaCl com I = 0.1mA + do fundo
 """
-reader('5c_Nada_Varr1.xry', -2.3, 2, 0.1, 2) # fundo
-reader('5C_NACL_3Varr1.xry', -2.3, 30, 0.1, 2) # NaCl
-reader('5c_Nacl2_2varr1.xry', -2.3, 30, 0.1, 2) # NaCl2 parte1
-reader('5c_Nacl2_2varr2.xry', -2.3, 30, 0.1, 2) # NaCl2 parte2
+
+"""
+ler files para ref relativa 
+"""
+NaCl_spectrum = reader("dados_ref/NaCl_spectrum.xry", 2.5, 60, 0.2, 1)
+Si_spectrum = reader("dados_ref/Si_spectrum.xry", 2.5, 60, 0.2, 1)
+LiF_spectrum = reader("dados_ref/LiF_spectrum.xry", 5, 40, 0.1, 1)
+NaCl_X_spectrum = reader("dados_ref/NaCl_spectrum_x.xry", 2.5, 45, 0.1, 1)
+NaCl_O_spectrum = reader("dados_ref/NaCl_spectrum_O.xry", 2.5, 45, 0.1, 4)
+Al_spectrum_mau = reader("dados_ref/Al_Spectrum_mau.xry", 2.5, 45, 0.1, 1)
+HOPG_spectrum = reader("dados_ref/HOPG_Spectrum.xry", 2.5, 45, 0.1, 1)
+Safira_spectrum = reader("dados_ref/Safira_spectrum.xry", 10, 45, 0.1, 1)
+spectrums = [NaCl_spectrum, Si_spectrum, LiF_spectrum, NaCl_X_spectrum, NaCl_O_spectrum, Al_spectrum_mau, HOPG_spectrum, Safira_spectrum]
+#Tem que começar todos em 10.1, vamos encontrar o 10.1 e depois cortar o array
+#para começar em 10.1
+for spectrum in spectrums:
+    for i in range(len(spectrum)):
+        if spectrum[i][0] == 10.1:
+            break
+    spectrum = spectrum[i:]
 
 
 ### Plotting data
