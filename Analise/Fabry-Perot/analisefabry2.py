@@ -13,6 +13,7 @@ def gauss(x, A, mu, sigma, d):
 def gauss_sum(x, A, mu1, sigma1, B, mu2, sigma2,d):
     return (A * np.exp(0.5* -(x - mu1) ** 2 / (sigma1 ** 2)))/np.sqrt(2*np.pi*sigma1**2) + (B * np.exp(0.5*-(x - mu2) ** 2 / (sigma2 ** 2)))/np.sqrt(2*np.pi*sigma2**2) + d
 
+'''
 ### aula4_1.lab ###
 
 with open('aula4_1.lab', 'r') as file:
@@ -771,70 +772,70 @@ plt.show()
 with open('aula4_8.lab', 'r') as file:
     lines = file.readlines()
 
-data48 = []
+data45 = []
 for line in lines:
     values = line.strip().split()
     values = [float(v) for v in values]
-    data48.append(values)
+    data45.append(values)
 
-df48 = pd.DataFrame(data48, columns=['iteracao', 'time', 'T.Piezo', 'T.Foto'])
+df45 = pd.DataFrame(data45, columns=['iteracao', 'time', 'T.Piezo', 'T.Foto'])
 
-T_Piezo48 = np.array(df48['T.Piezo'])
-T_Foto48 = np.array(df48['T.Foto'])
+T_Piezo45 = np.array(df45['T.Piezo'])
+T_Foto45 = np.array(df45['T.Foto'])
 
-valores_selecionados_3 = T_Piezo48[(T_Piezo48 >= 5) & (T_Piezo48 <= 6)]
-valores_selecionados_4 = T_Piezo48[(T_Piezo48 >= 6) & (T_Piezo48 <= 6.5)]
-valores_selecionados_1 = T_Piezo48[(T_Piezo48 >= 1.5) & (T_Piezo48 <= 1.75)]
-valores_selecionados_2 = T_Piezo48[(T_Piezo48 >= 1.5) & (T_Piezo48 <= 2.5)]
-valores_selecionados_5 = T_Piezo48[(T_Piezo48 >= 8.75) & (T_Piezo48 <= 9.25)]
-valores_selecionados_6 = T_Piezo48[(T_Piezo48 >= 9.4) & (T_Piezo48 <= 9.6)]
+valores_selecionados_3 = T_Piezo45[(T_Piezo45 >= 5) & (T_Piezo45 <= 6)]
+valores_selecionados_4 = T_Piezo45[(T_Piezo45 >= 6) & (T_Piezo45 <= 6.5)]
+valores_selecionados_1 = T_Piezo45[(T_Piezo45 >= 1.5) & (T_Piezo45 <= 1.75)]
+valores_selecionados_2 = T_Piezo45[(T_Piezo45 >= 1.5) & (T_Piezo45 <= 2.5)]
+valores_selecionados_5 = T_Piezo45[(T_Piezo45 >= 8.75) & (T_Piezo45 <= 9.25)]
+valores_selecionados_6 = T_Piezo45[(T_Piezo45 >= 9.4) & (T_Piezo45 <= 9.6)]
 
 # Calcular a média e o desvio padrão dos dados selecionados
-mean48_1 = np.mean(valores_selecionados_1)
-mean48_2 = np.mean(valores_selecionados_2)
-std_dev48_1 = np.std(valores_selecionados_1) 
-std_dev48_2 = np.std(valores_selecionados_2)
-mean48_3 = np.mean(valores_selecionados_3)
-std_dev48_3 = np.std(valores_selecionados_3) 
-mean48_4 = np.mean(valores_selecionados_4)
-std_dev48_4 = np.std(valores_selecionados_4)
-mean48_5 = np.mean(valores_selecionados_5)
-std_dev48_5 = np.std(valores_selecionados_5) 
-mean48_6 = np.mean(valores_selecionados_6)
-std_dev48_6 = np.std(valores_selecionados_6) 
+mean45_1 = np.mean(valores_selecionados_1)
+mean45_2 = np.mean(valores_selecionados_2)
+std_dev45_1 = np.std(valores_selecionados_1) 
+std_dev45_2 = np.std(valores_selecionados_2)
+mean45_3 = np.mean(valores_selecionados_3)
+std_dev45_3 = np.std(valores_selecionados_3) 
+mean45_4 = np.mean(valores_selecionados_4)
+std_dev45_4 = np.std(valores_selecionados_4)
+mean45_5 = np.mean(valores_selecionados_5)
+std_dev45_5 = np.std(valores_selecionados_5) 
+mean45_6 = np.mean(valores_selecionados_6)
+std_dev45_6 = np.std(valores_selecionados_6) 
 
 # Ajustar a gaussiana apenas para o intervalo selecionado
-p048_1 = [T_Foto48.max(), mean48_1, std_dev48_1,T_Foto48[(T_Piezo48 >= 1.5) & (T_Piezo48 <= 2.5)].max(), mean48_2, std_dev48_2,5]  # Estimativas iniciais para A, mu1 e sigma1
-popt48_1, covariance1 = curve_fit(gauss_sum, T_Piezo48, T_Foto48, p0=p048_1)
-x_fit48_1 = np.linspace(0.5, 3)  # Intervalo para o ajuste
-A1 , mu1 , sigma1, A2, mu2, sigma2, d = popt48_1[0] , popt48_1[1], popt48_1[2] , popt48_1[3], popt48_1[4], popt48_1[5], popt48_1[6]
+p045_1 = [T_Foto45.max(), mean45_1, std_dev45_1,T_Foto45[(T_Piezo45 >= 1.5) & (T_Piezo45 <= 2.5)].max(), mean45_2, std_dev45_2,5]  # Estimativas iniciais para A, mu1 e sigma1
+popt45_1, covariance1 = curve_fit(gauss_sum, T_Piezo45, T_Foto45, p0=p045_1)
+x_fit45_1 = np.linspace(0.5, 3)  # Intervalo para o ajuste
+A1 , mu1 , sigma1, A2, mu2, sigma2, d = popt45_1[0] , popt45_1[1], popt45_1[2] , popt45_1[3], popt45_1[4], popt45_1[5], popt45_1[6]
 A1_error, mu1_error, sigma1_error, A2_error, mu2_error, sigma2_error, d1_error = np.sqrt(np.diag(covariance1))
 
-p048_2 = [T_Foto48.max(), mean48_3, 0.1,T_Foto48[(T_Piezo48>= 6) & (T_Piezo48 <= 7)].max(), mean48_4, std_dev48_4, 0.5]  # Estimativas iniciais para A, mu1 e sigma1
-popt48_2, covariance2 = curve_fit(gauss_sum, T_Piezo48, T_Foto48, p0=p048_2)
-x_fit48_2 = np.linspace(4.5, 7)  # Intervalo para o ajuste
-A3 , mu3 , sigma3, A4, mu4, sigma4, d = popt48_2[0] , popt48_2[1], popt48_2[2] , popt48_2[3], popt48_2[4], popt48_2[5], popt48_2[6]
+p045_2 = [T_Foto45.max(), mean45_3, 0.1,T_Foto45[(T_Piezo45>= 6) & (T_Piezo45 <= 7)].max(), mean45_4, std_dev45_4, 0.5]  # Estimativas iniciais para A, mu1 e sigma1
+popt45_2, covariance2 = curve_fit(gauss_sum, T_Piezo45, T_Foto45, p0=p045_2)
+x_fit45_2 = np.linspace(4.5, 7)  # Intervalo para o ajuste
+A3 , mu3 , sigma3, A4, mu4, sigma4, d = popt45_2[0] , popt45_2[1], popt45_2[2] , popt45_2[3], popt45_2[4], popt45_2[5], popt45_2[6]
 A3_error, mu3_error, sigma3_error, A4_error, mu4_error, sigma4_error, d2_error = np.sqrt(np.diag(covariance2))
 
-p048_3 = [1000*T_Foto48.max(), mean48_5, 0.01, T_Foto48[(T_Piezo48>= 9.4) & (T_Piezo48 <= 9.6)].max(), mean48_6, std_dev48_6, 5]  # Estimativas iniciais para A, mu e sigma
-popt48_3, covariance3 = curve_fit(gauss_sum, T_Piezo48, T_Foto48, p0=p048_3)
-x_fit48_3 = np.linspace(8.25, 9.75)  # Intervalo para o ajuste
-A5 , mu5 , sigma5, A6, mu6, sigma6, d = popt48_3[0] , popt48_3[1], popt48_3[2] , popt48_3[3], popt48_3[4], popt48_3[5], popt48_3[6]
+p045_3 = [1000*T_Foto45.max(), mean45_5, 0.01, T_Foto45[(T_Piezo45>= 9.4) & (T_Piezo45 <= 9.6)].max(), mean45_6, std_dev45_6, 5]  # Estimativas iniciais para A, mu e sigma
+popt45_3, covariance3 = curve_fit(gauss_sum, T_Piezo45, T_Foto45, p0=p045_3)
+x_fit45_3 = np.linspace(8.25, 9.75)  # Intervalo para o ajuste
+A5 , mu5 , sigma5, A6, mu6, sigma6, d = popt45_3[0] , popt45_3[1], popt45_3[2] , popt45_3[3], popt45_3[4], popt45_3[5], popt45_3[6]
 A5_error, mu5_error, sigma5_error, A6_error, mu6_error, sigma6_error, d3_error = np.sqrt(np.diag(covariance3))
 
 # Plot dos dados e da gaussiana ajustada
 plt.figure(figsize=(12, 6))
 
-plt.plot(T_Piezo48, T_Foto48)
+plt.plot(T_Piezo45, T_Foto45)
 #plt.plot(, label=r'$%3.f \cdot \frac{1}{\sqrt{2\pi%3.f}}e^{\frac{-(x-%.3f)^2}{%.3f^2}}$,  $\mu_2$ = %.3f, $\sigma_2$ = %.3f, d = %.3f' % (A1, sigma1, mu1, sigma1, mu2, sigma2, d))
 
-plt.plot(x_fit48_1, gauss_sum(x_fit48_1, *popt48_1), label=r'$A1 = %.3f \pm %.3f; \mu 1 = %.3f \pm %.3f; \sigma 2 = %.3f \pm %.3f; A2 = %.3f \pm %.3f; \mu 2 = %.3f \pm %.3f; \sigma 2  = %.3f \pm %.3f; d = %.3f \pm %.3f$' %(A1, A1_error, mu1, mu1_error, sigma1, sigma1_error, A2, A2_error, mu2, mu2_error, sigma2, sigma2_error, d, d1_error))
-plt.plot(x_fit48_2, gauss_sum(x_fit48_2, *popt48_2), label=r'$A3 = %.3f \pm %.3f; \mu 3 = %.3f \pm %.3f; \sigma 3 = %.3f \pm %.3f; A4 = %.3f \pm %.3f; \mu 4 = %.3f \pm %.3f; \sigma 4 = %.3f \pm %.3f; d = %.3f \pm %.3f$' %(A3, A3_error, mu3, mu3_error, sigma3, sigma3_error, A4, A4_error, mu4, mu4_error, sigma4, sigma4_error, d, d2_error))
-plt.plot(x_fit48_3, gauss_sum(x_fit48_3, *popt48_3), label=r'$A5 = %.3f \pm %.3f; \mu 5 = %.3f \pm %.3f; \sigma 5 = %.3f \pm %.3f; A6 = %.3f \pm %.3f; \mu 6 = %.3f \pm %.3f; \sigma 6 = %.3f \pm %.3f; d = %.3f \pm %.3f$' %(A5, A5_error, mu5, mu5_error, sigma5, sigma5_error, A6, A6_error, mu6, mu6_error, sigma6, sigma6_error, d, d3_error))
+plt.plot(x_fit45_1, gauss_sum(x_fit45_1, *popt45_1), label=r'$A1 = %.3f \pm %.3f; \mu 1 = %.3f \pm %.3f; \sigma 2 = %.3f \pm %.3f; A2 = %.3f \pm %.3f; \mu 2 = %.3f \pm %.3f; \sigma 2  = %.3f \pm %.3f; d = %.3f \pm %.3f$' %(A1, A1_error, mu1, mu1_error, sigma1, sigma1_error, A2, A2_error, mu2, mu2_error, sigma2, sigma2_error, d, d1_error))
+plt.plot(x_fit45_2, gauss_sum(x_fit45_2, *popt45_2), label=r'$A3 = %.3f \pm %.3f; \mu 3 = %.3f \pm %.3f; \sigma 3 = %.3f \pm %.3f; A4 = %.3f \pm %.3f; \mu 4 = %.3f \pm %.3f; \sigma 4 = %.3f \pm %.3f; d = %.3f \pm %.3f$' %(A3, A3_error, mu3, mu3_error, sigma3, sigma3_error, A4, A4_error, mu4, mu4_error, sigma4, sigma4_error, d, d2_error))
+plt.plot(x_fit45_3, gauss_sum(x_fit45_3, *popt45_3), label=r'$A5 = %.3f \pm %.3f; \mu 5 = %.3f \pm %.3f; \sigma 5 = %.3f \pm %.3f; A6 = %.3f \pm %.3f; \mu 6 = %.3f \pm %.3f; \sigma 6 = %.3f \pm %.3f; d = %.3f \pm %.3f$' %(A5, A5_error, mu5, mu5_error, sigma5, sigma5_error, A6, A6_error, mu6, mu6_error, sigma6, sigma6_error, d, d3_error))
 
 plt.xlabel('T.Piezo')
 plt.ylabel('T.Foto')
-plt.title('aula48 ')
+plt.title('aula45 ')
 
 x_values_to_display = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 y_values_to_display = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
@@ -843,8 +844,8 @@ plt.xticks(x_values_to_display)
 plt.yticks(y_values_to_display)
 
 plt.legend(fontsize='small')
-plt.savefig('aula48.png')
-plt.show() 
+plt.savefig('aula45.png')
+plt.show() '''
 
 ### aula3_13.lab ###
 
@@ -862,8 +863,8 @@ df313 = pd.DataFrame(data313, columns=['iteracao', 'time', 'T.Piezo', 'T.Foto'])
 T_Piezo313 = np.array(df313['T.Piezo'])
 T_Foto313 = np.array(df313['T.Foto'])
 
-valores_selecionados_1 = T_Piezo313[(T_Piezo313 >= 0.5) & (T_Piezo313 <= 0.8)]
-valores_selecionados_2 = T_Piezo313[(T_Piezo313 >= 7) & (T_Piezo313 <= 7.5)]
+valores_selecionados_1 = T_Piezo313[(T_Piezo313 >= 0.4) & (T_Piezo313 <= 0.9)]
+valores_selecionados_2 = T_Piezo313[(T_Piezo313 >= 6.7) & (T_Piezo313 <= 7.5)]
 
 # Calcular a média e o desvio padrão dos dados selecionados
 mean313_1 = np.mean(valores_selecionados_1)
@@ -872,15 +873,15 @@ std_dev313_1 = np.std(valores_selecionados_1)
 std_dev313_2 = np.std(valores_selecionados_2) 
 
 # Ajustar a gaussiana apenas para o intervalo selecionado
-p0313_1 = [T_Foto313.max(), mean313_1, std_dev313_1, 5]  # Estimativas iniciais para A, mu e sigma
-popt313_1, covariance1 = curve_fit(gauss, valores_selecionados_1, T_Foto313[(T_Piezo313 >= 0.5) & (T_Piezo313 <= 0.8)], p0=p0313_1)
+p0313_1 = [T_Foto313.max(), mean313_1, std_dev313_1, 0]  # Estimativas iniciais para A, mu e sigma
+popt313_1, covariance1 = curve_fit(gauss, valores_selecionados_1, T_Foto313[(T_Piezo313 >= 0.4) & (T_Piezo313 <= 0.9)], p0=p0313_1)
 A1_error, mu1_error, sigma1_error, d1_error = np.sqrt(np.diag(covariance1))
-x_fit313_1 = np.linspace(0.3, 0.9)  # Intervalo para o ajuste
+x_fit313_1 = np.linspace(0.3, 1)  # Intervalo para o ajuste
 
-p0313_2 = [T_Foto313.max(), mean313_2, std_dev313_2, 5]  # Estimativas iniciais para A, mu e sigma
-popt313_2, covariance2 = curve_fit(gauss, valores_selecionados_2, T_Foto313[(T_Piezo313 >= 7) & (T_Piezo313 <= 7.5)], p0=p0313_2)
+p0313_2 = [T_Foto313.max(), mean313_2, std_dev313_2, 0]  # Estimativas iniciais para A, mu e sigma
+popt313_2, covariance2 = curve_fit(gauss, valores_selecionados_2, T_Foto313[(T_Piezo313 >= 6.7) & (T_Piezo313 <= 7.5)], p0=p0313_2)
 A2_error, mu2_error, sigma2_error, d2_error = np.sqrt(np.diag(covariance2))
-x_fit313_2 = np.linspace(7, 7.5)  # Intervalo para o ajuste
+x_fit313_2 = np.linspace(6.5, 7.5)  # Intervalo para o ajuste
 
 # Plot dos dados e da gaussiana ajustada
 plt.figure(figsize=(12, 6))
@@ -905,3 +906,82 @@ plt.legend(fontsize='small')
 plt.savefig('aula313.png')
 plt.show() 
 
+### aula45.lab ###
+
+with open('aula4_5.lab', 'r') as file:
+    lines = file.readlines()
+
+data45 = []
+for line in lines:
+    values = line.strip().split()
+    values = [float(v) for v in values]
+    data45.append(values)
+
+df45 = pd.DataFrame(data45, columns=['iteracao', 'time', 'T.Piezo', 'T.Foto'])
+
+T_Piezo45 = np.array(df45['T.Piezo'])
+T_Foto45 = np.array(df45['T.Foto'])
+
+valores_selecionados_3 = T_Piezo45[(T_Piezo45 >= 5) & (T_Piezo45 <= 5.25)]
+valores_selecionados_4 = T_Piezo45[(T_Piezo45 >= 5.75) & (T_Piezo45 <= 6)]
+valores_selecionados_1 = T_Piezo45[(T_Piezo45 >= 1.25) & (T_Piezo45 <= 1.75)]
+valores_selecionados_2 = T_Piezo45[(T_Piezo45 >= 2) & (T_Piezo45 <= 2.5)]
+valores_selecionados_5 = T_Piezo45[(T_Piezo45 >= 8) & (T_Piezo45 <= 8.25)]
+valores_selecionados_6 = T_Piezo45[(T_Piezo45 >= 8.2) & (T_Piezo45 <= 8.75)]
+
+# Calcular a média e o desvio padrão dos dados selecionados
+mean45_1 = np.mean(valores_selecionados_1)
+mean45_2 = np.mean(valores_selecionados_2)
+std_dev45_1 = np.std(valores_selecionados_1) 
+std_dev45_2 = np.std(valores_selecionados_2)
+mean45_3 = np.mean(valores_selecionados_3)
+std_dev45_3 = np.std(valores_selecionados_3) 
+mean45_4 = np.mean(valores_selecionados_4)
+std_dev45_4 = np.std(valores_selecionados_4)
+mean45_5 = np.mean(valores_selecionados_5)
+std_dev45_5 = np.std(valores_selecionados_5) 
+mean45_6 = np.mean(valores_selecionados_6)
+std_dev45_6 = np.std(valores_selecionados_6) 
+
+# Ajustar a gaussiana apenas para o intervalo selecionado
+p045_1 = [T_Foto45.max(), mean45_1, std_dev45_1,T_Foto45[(T_Piezo45 >= 2) & (T_Piezo45 <= 2.5)].max(), mean45_2, std_dev45_2,5]  # Estimativas iniciais para A, mu1 e sigma1
+popt45_1, covariance1 = curve_fit(gauss_sum, T_Piezo45, T_Foto45, p0=p045_1)
+x_fit45_1 = np.linspace(1, 2.5)  # Intervalo para o ajuste
+A1 , mu1 , sigma1, A2, mu2, sigma2, d = popt45_1[0] , popt45_1[1], popt45_1[2] , popt45_1[3], popt45_1[4], popt45_1[5], popt45_1[6]
+A1_error, mu1_error, sigma1_error, A2_error, mu2_error, sigma2_error, d1_error = np.sqrt(np.diag(covariance1))
+
+p045_2 = [T_Foto45.max(), mean45_3, 0.1,T_Foto45[(T_Piezo45>= 5.75) & (T_Piezo45 <= 6)].max(), mean45_4, std_dev45_4, 0.5]  # Estimativas iniciais para A, mu1 e sigma1
+popt45_2, covariance2 = curve_fit(gauss_sum, T_Piezo45, T_Foto45, p0=p045_2)
+x_fit45_2 = np.linspace(4.5, 6)  # Intervalo para o ajuste
+A3 , mu3 , sigma3, A4, mu4, sigma4, d = popt45_2[0] , popt45_2[1], popt45_2[2] , popt45_2[3], popt45_2[4], popt45_2[5], popt45_2[6]
+A3_error, mu3_error, sigma3_error, A4_error, mu4_error, sigma4_error, d2_error = np.sqrt(np.diag(covariance2))
+
+p045_3 = [T_Foto45.max(), mean45_5, std_dev45_5, T_Foto45[(T_Piezo45>= 8.2) & (T_Piezo45 <= 8.75)].max(), mean45_6, 0.2*std_dev45_6, 5]  # Estimativas iniciais para A, mu e sigma
+popt45_3, covariance3 = curve_fit(gauss_sum, T_Piezo45, T_Foto45, p0=p045_3)
+x_fit45_3 = np.linspace(7.5, 8.75)  # Intervalo para o ajuste
+A5 , mu5 , sigma5, A6, mu6, sigma6, d = popt45_3[0] , popt45_3[1], popt45_3[2] , popt45_3[3], popt45_3[4], popt45_3[5], popt45_3[6]
+A5_error, mu5_error, sigma5_error, A6_error, mu6_error, sigma6_error, d3_error = np.sqrt(np.diag(covariance3))
+
+# Plot dos dados e da gaussiana ajustada
+plt.figure(figsize=(12, 6))
+
+plt.plot(T_Piezo45, T_Foto45)
+#plt.plot(, label=r'$%3.f \cdot \frac{1}{\sqrt{2\pi%3.f}}e^{\frac{-(x-%.3f)^2}{%.3f^2}}$,  $\mu_2$ = %.3f, $\sigma_2$ = %.3f, d = %.3f' % (A1, sigma1, mu1, sigma1, mu2, sigma2, d))
+
+plt.plot(x_fit45_1, gauss_sum(x_fit45_1, *popt45_1), label=r'$A1 = %.3f \pm %.3f; \mu 1 = %.3f \pm %.3f; \sigma 2 = %.3f \pm %.3f; A2 = %.3f \pm %.3f; \mu 2 = %.3f \pm %.3f; \sigma 2  = %.3f \pm %.3f; d = %.3f \pm %.3f$' %(A1, A1_error, mu1, mu1_error, sigma1, sigma1_error, A2, A2_error, mu2, mu2_error, sigma2, sigma2_error, d, d1_error))
+plt.plot(x_fit45_2, gauss_sum(x_fit45_2, *popt45_2), label=r'$A3 = %.3f \pm %.3f; \mu 3 = %.3f \pm %.3f; \sigma 3 = %.3f \pm %.3f; A4 = %.3f \pm %.3f; \mu 4 = %.3f \pm %.3f; \sigma 4 = %.3f \pm %.3f; d = %.3f \pm %.3f$' %(A3, A3_error, mu3, mu3_error, sigma3, sigma3_error, A4, A4_error, mu4, mu4_error, sigma4, sigma4_error, d, d2_error))
+plt.plot(x_fit45_3, gauss_sum(x_fit45_3, *popt45_3), label=r'$A5 = %.3f \pm %.3f; \mu 5 = %.3f \pm %.3f; \sigma 5 = %.3f \pm %.3f; A6 = %.3f \pm %.3f; \mu 6 = %.3f \pm %.3f; \sigma 6 = %.3f \pm %.3f; d = %.3f \pm %.3f$' %(A5, A5_error, mu5, mu5_error, sigma5, sigma5_error, A6, A6_error, mu6, mu6_error, sigma6, sigma6_error, d, d3_error))
+
+plt.xlabel('T.Piezo')
+plt.ylabel('T.Foto')
+plt.title('aula45 ')
+
+x_values_to_display = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+y_values_to_display = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+
+plt.xticks(x_values_to_display)
+plt.yticks(y_values_to_display)
+
+plt.legend(fontsize='small')
+plt.savefig('aula45.png')
+plt.show() 
