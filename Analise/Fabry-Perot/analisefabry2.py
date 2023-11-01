@@ -864,7 +864,7 @@ T_Piezo313 = np.array(df313['T.Piezo'])
 T_Foto313 = np.array(df313['T.Foto'])
 
 valores_selecionados_1 = T_Piezo313[(T_Piezo313 >= 0.4) & (T_Piezo313 <= 0.9)]
-valores_selecionados_2 = T_Piezo313[(T_Piezo313 >= 6.7) & (T_Piezo313 <= 7.5)]
+valores_selecionados_2 = T_Piezo313[(T_Piezo313 >= 6.5) & (T_Piezo313 <= 7.5)]
 
 # Calcular a média e o desvio padrão dos dados selecionados
 mean313_1 = np.mean(valores_selecionados_1)
@@ -879,7 +879,7 @@ A1_error, mu1_error, sigma1_error, d1_error = np.sqrt(np.diag(covariance1))
 x_fit313_1 = np.linspace(0.3, 1)  # Intervalo para o ajuste
 
 p0313_2 = [T_Foto313.max(), mean313_2, std_dev313_2, 0]  # Estimativas iniciais para A, mu e sigma
-popt313_2, covariance2 = curve_fit(gauss, valores_selecionados_2, T_Foto313[(T_Piezo313 >= 6.7) & (T_Piezo313 <= 7.5)], p0=p0313_2)
+popt313_2, covariance2 = curve_fit(gauss, valores_selecionados_2, T_Foto313[(T_Piezo313 >= 6.5) & (T_Piezo313 <= 7.5)], p0=p0313_2)
 A2_error, mu2_error, sigma2_error, d2_error = np.sqrt(np.diag(covariance2))
 x_fit313_2 = np.linspace(6.5, 7.5)  # Intervalo para o ajuste
 
@@ -984,4 +984,6 @@ plt.yticks(y_values_to_display)
 
 plt.legend(fontsize='small')
 plt.savefig('aula45.png')
-plt.show() 
+plt.show()
+
+ 
