@@ -864,7 +864,7 @@ T_Piezo313 = np.array(df313['T.Piezo'])
 T_Foto313 = np.array(df313['T.Foto'])
 
 valores_selecionados_1 = T_Piezo313[(T_Piezo313 >= 0.4) & (T_Piezo313 <= 0.9)]
-valores_selecionados_2 = T_Piezo313[(T_Piezo313 >= 6.5) & (T_Piezo313 <= 7.5)]
+valores_selecionados_2 = T_Piezo313[(T_Piezo313 >= 6.2) & (T_Piezo313 <= 7.5)]
 
 # Calcular a média e o desvio padrão dos dados selecionados
 mean313_1 = np.mean(valores_selecionados_1)
@@ -879,9 +879,9 @@ A1_error, mu1_error, sigma1_error, d1_error = np.sqrt(np.diag(covariance1))
 x_fit313_1 = np.linspace(0.3, 1)  # Intervalo para o ajuste
 
 p0313_2 = [T_Foto313.max(), mean313_2, std_dev313_2, 0]  # Estimativas iniciais para A, mu e sigma
-popt313_2, covariance2 = curve_fit(gauss, valores_selecionados_2, T_Foto313[(T_Piezo313 >= 6.5) & (T_Piezo313 <= 7.5)], p0=p0313_2)
+popt313_2, covariance2 = curve_fit(gauss, valores_selecionados_2, T_Foto313[(T_Piezo313 >= 6.2) & (T_Piezo313 <= 7.5)], p0=p0313_2)
 A2_error, mu2_error, sigma2_error, d2_error = np.sqrt(np.diag(covariance2))
-x_fit313_2 = np.linspace(6.5, 7.5)  # Intervalo para o ajuste
+x_fit313_2 = np.linspace(6, 8)  # Intervalo para o ajuste
 
 # Plot dos dados e da gaussiana ajustada
 plt.figure(figsize=(12, 6))
@@ -986,4 +986,82 @@ plt.legend(fontsize='small')
 plt.savefig('aula45.png')
 plt.show()
 
- 
+### aula46.lab ###
+
+with open('aula4_6.lab', 'r') as file:
+    lines = file.readlines()
+
+data46 = []
+for line in lines:
+    values = line.strip().split()
+    values = [float(v) for v in values]
+    data46.append(values)
+
+df46 = pd.DataFrame(data46, columns=['iteracao', 'time', 'T.Piezo', 'T.Foto'])
+
+T_Piezo46 = np.array(df46['T.Piezo'])
+T_Foto46 = np.array(df46['T.Foto'])
+
+valores_selecionados_3 = T_Piezo46[(T_Piezo46 >= 4.3) & (T_Piezo46 <= 5)]
+valores_selecionados_4 = T_Piezo46[(T_Piezo46 >= 5) & (T_Piezo46 <= 5.5)]
+valores_selecionados_1 = T_Piezo46[(T_Piezo46 >= 1.25) & (T_Piezo46 <= 1.75)]
+valores_selecionados_2 = T_Piezo46[(T_Piezo46 >= 2) & (T_Piezo46 <= 2.5)]
+valores_selecionados_5 = T_Piezo46[(T_Piezo46 >= 8) & (T_Piezo46 <= 8.25)]
+valores_selecionados_6 = T_Piezo46[(T_Piezo46 >= 8.2) & (T_Piezo46 <= 9.25)]
+
+# Calcular a média e o desvio padrão dos dados selecionados
+mean46_1 = np.mean(valores_selecionados_1)
+mean46_2 = np.mean(valores_selecionados_2)
+std_dev46_1 = np.std(valores_selecionados_1) 
+std_dev46_2 = np.std(valores_selecionados_2)
+mean46_3 = np.mean(valores_selecionados_3)
+std_dev46_3 = np.std(valores_selecionados_3) 
+mean46_4 = np.mean(valores_selecionados_4)
+std_dev46_4 = np.std(valores_selecionados_4)
+mean46_5 = np.mean(valores_selecionados_5)
+std_dev46_5 = np.std(valores_selecionados_5) 
+mean46_6 = np.mean(valores_selecionados_6)
+std_dev46_6 = np.std(valores_selecionados_6) 
+
+# Ajustar a gaussiana apenas para o intervalo selecionado
+p046_1 = [T_Foto46.max(), mean46_1, std_dev46_1,T_Foto46[(T_Piezo46 >= 2) & (T_Piezo46 <= 2.5)].max(), mean46_2, std_dev46_2,5]  # Estimativas iniciais para A, mu1 e sigma1
+popt46_1, covariance1 = curve_fit(gauss_sum, T_Piezo46, T_Foto46, p0=p046_1)
+x_fit46_1 = np.linspace(1, 2.5)  # Intervalo para o ajuste
+A1 , mu1 , sigma1, A2, mu2, sigma2, d = popt46_1[0] , popt46_1[1], popt46_1[2] , popt46_1[3], popt46_1[4], popt46_1[5], popt46_1[6]
+A1_error, mu1_error, sigma1_error, A2_error, mu2_error, sigma2_error, d1_error = np.sqrt(np.diag(covariance1))
+
+p046_2 = [T_Foto46.max(), mean46_3, 0.1,T_Foto46[(T_Piezo46>= 5) & (T_Piezo46 <= 5.5)].max(), mean46_4, std_dev46_4, 0.5]  # Estimativas iniciais para A, mu1 e sigma1
+popt46_2, covariance2 = curve_fit(gauss_sum, T_Piezo46, T_Foto46, p0=p046_2)
+x_fit46_2 = np.linspace(4.3, 5.5)  # Intervalo para o ajuste
+A3 , mu3 , sigma3, A4, mu4, sigma4, d = popt46_2[0] , popt46_2[1], popt46_2[2] , popt46_2[3], popt46_2[4], popt46_2[5], popt46_2[6]
+A3_error, mu3_error, sigma3_error, A4_error, mu4_error, sigma4_error, d2_error = np.sqrt(np.diag(covariance2))
+
+p046_3 = [T_Foto46.max(), mean46_5, 10*std_dev46_5, T_Foto46[(T_Piezo46>= 8.2) & (T_Piezo46 <= 9.25)].max(), mean46_6, 0.2*std_dev46_6, 5]  # Estimativas iniciais para A, mu e sigma
+popt46_3, covariance3 = curve_fit(gauss_sum, T_Piezo46, T_Foto46, p0=p046_3)
+x_fit46_3 = np.linspace(8,9.25)  # Intervalo para o ajuste
+A5 , mu5 , sigma5, A6, mu6, sigma6, d = popt46_3[0] , popt46_3[1], popt46_3[2] , popt46_3[3], popt46_3[4], popt46_3[5], popt46_3[6]
+A5_error, mu5_error, sigma5_error, A6_error, mu6_error, sigma6_error, d3_error = np.sqrt(np.diag(covariance3))
+
+# Plot dos dados e da gaussiana ajustada
+plt.figure(figsize=(12, 6))
+
+plt.plot(T_Piezo46, T_Foto46)
+#plt.plot(, label=r'$%3.f \cdot \frac{1}{\sqrt{2\pi%3.f}}e^{\frac{-(x-%.3f)^2}{%.3f^2}}$,  $\mu_2$ = %.3f, $\sigma_2$ = %.3f, d = %.3f' % (A1, sigma1, mu1, sigma1, mu2, sigma2, d))
+
+plt.plot(x_fit46_1, gauss_sum(x_fit46_1, *popt46_1), label=r'$A1 = %.3f \pm %.3f; \mu 1 = %.3f \pm %.3f; \sigma 2 = %.3f \pm %.3f; A2 = %.3f \pm %.3f; \mu 2 = %.3f \pm %.3f; \sigma 2  = %.3f \pm %.3f; d = %.3f \pm %.3f$' %(A1, A1_error, mu1, mu1_error, sigma1, sigma1_error, A2, A2_error, mu2, mu2_error, sigma2, sigma2_error, d, d1_error))
+plt.plot(x_fit46_2, gauss_sum(x_fit46_2, *popt46_2), label=r'$A3 = %.3f \pm %.3f; \mu 3 = %.3f \pm %.3f; \sigma 3 = %.3f \pm %.3f; A4 = %.3f \pm %.3f; \mu 4 = %.3f \pm %.3f; \sigma 4 = %.3f \pm %.3f; d = %.3f \pm %.3f$' %(A3, A3_error, mu3, mu3_error, sigma3, sigma3_error, A4, A4_error, mu4, mu4_error, sigma4, sigma4_error, d, d2_error))
+plt.plot(x_fit46_3, gauss_sum(x_fit46_3, *popt46_3), label=r'$A5 = %.3f \pm %.3f; \mu 5 = %.3f \pm %.3f; \sigma 5 = %.3f \pm %.3f; A6 = %.3f \pm %.3f; \mu 6 = %.3f \pm %.3f; \sigma 6 = %.3f \pm %.3f; d = %.3f \pm %.3f$' %(A5, A5_error, mu5, mu5_error, sigma5, sigma5_error, A6, A6_error, mu6, mu6_error, sigma6, sigma6_error, d, d3_error))
+
+plt.xlabel('T.Piezo')
+plt.ylabel('T.Foto')
+plt.title('aula46 ')
+
+x_values_to_display = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+y_values_to_display = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+
+plt.xticks(x_values_to_display)
+plt.yticks(y_values_to_display)
+
+plt.legend(fontsize='small')
+plt.savefig('aula46.png')
+plt.show()
